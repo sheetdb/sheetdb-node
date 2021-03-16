@@ -12,7 +12,7 @@
   ],
   "name": "sheetdb-node",
   "description": "Official SheetDB API bindings for Node.js",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "homepage": "https://github.com/sheetdb/sheetdb-node",
   "repository": {
     "type": "git",
