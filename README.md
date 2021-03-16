@@ -1,8 +1,3 @@
-
-# sheetdb-node
- <!-- [![Build passing](https://travis-ci.org/sheetdb/sheetdb-ruby.svg?branch=master)](https://travis-ci.org/sheetdb/sheetdb-ruby) [![Code Climate](https://codeclimate.com/github/sheetdb/sheetdb-ruby/badges/gpa.svg)](https://codeclimate.com/github/sheetdb/sheetdb-ruby) [![Test Coverage](https://codeclimate.com/github/sheetdb/sheetdb-ruby/badges/coverage.svg)](https://codeclimate.com/github/sheetdb/sheetdb-ruby/coverage)
-Ruby bindings for the SheetDB API (https://sheetdb.com/docs). -->
-
 ## Installation
 
 ```
