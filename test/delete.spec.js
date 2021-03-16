@@ -94,12 +94,12 @@ describe('sheetdb', function() {
 
     it('should return url different Sheet', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3/column/test', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test?sheet=Sheet2', function(req, res) {
         return res.status(200).body(req);
       });
 
-      return sheetdb.delete('column', 'test', 'Sheet3').then(function(data){
-        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3/column/test');
+      return sheetdb.delete('column', 'test', 'Sheet2').then(function(data){
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/column/test?sheet=Sheet2');
       }, function(err) {
         assert.fail('sheetdb throw error');
       }).then(function() {

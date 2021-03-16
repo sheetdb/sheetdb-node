@@ -110,12 +110,12 @@ describe('sheetdb', function() {
 
     it('should return url different Sheet', function() {
       mock.setup();
-      mock.post('https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3', function(req, res) {
+      mock.post('https://sheetdb.io/api/v1/dfsdf43fsd?sheet=Sheet2', function(req, res) {
         return res.status(201).body(req);
       });
 
-      return sheetdb.create({}, 'Sheet3').then(function(data){
-        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3');
+      return sheetdb.create({}, 'Sheet2').then(function(data){
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd?sheet=Sheet2');
       }, function(err) {
         assert.fail('sheetdb throw error');
       });
