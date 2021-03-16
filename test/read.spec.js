@@ -1,24 +1,24 @@
-var sheetsuAPI = require('../');
+var sheetdbAPI = require('../');
 var assert = require('assert');
 
 var mock = require('xhr-mock');
 
-describe('sheetsu', function() {
+describe('sheetdb', function() {
   describe('read() function', function() {
-    var sheetsu = sheetsuAPI({
+    var sheetdb = sheetdbAPI({
       address: 'dfsdf43fsd',
     });
 
     it('should run with GET method', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd', function(req, res) {
         return res.status(200).body('test');
       });
 
-      return sheetsu.read({}).then(function(data) {
+      return sheetdb.read({}).then(function(data) {
         assert.equal(data, 'test');
       }, function(err) {
-        assert.fail('sheetsu throw error');
+        assert.fail('sheetdb throw error');
       }).then(function() {
         mock.teardown();
       });
@@ -26,20 +26,20 @@ describe('sheetsu', function() {
 
     it('should run with Http Basic Auth', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd', function(req, res) {
         return res.status(200).body(req._headers);
       });
 
-      sheetsuLocal = sheetsuAPI({
+      sheetdbLocal = sheetdbAPI({
         address: 'dfsdf43fsd',
-        api_key: 'somekey',
-        api_secret: 'somesecret',
+        auth_login: 'somekey',
+        auth_password: 'somesecret',
       });
 
-      return sheetsuLocal.read().then(function(data) {
+      return sheetdbLocal.read().then(function(data) {
         assert.equal(data.authorization, "Basic c29tZWtleTpzb21lc2VjcmV0");
       }, function(err) {
-        assert.fail('sheetsu throw error');
+        assert.fail('sheetdb throw error');
       }).then(function(){
         mock.teardown();
       });
@@ -47,16 +47,16 @@ describe('sheetsu', function() {
 
     it('should run with correct headers', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd', function(req, res) {
         return res.status(200).body(req._headers);
       });
 
-      return sheetsu.read().then(function(data) {
-        assert.equal(data["accept"], "application/vnd.sheetsu.3+json");
+      return sheetdb.read().then(function(data) {
+        assert.equal(data["accept"], "application/vnd.sheetdb.3+json");
         assert.equal(data["content-type"], "application/json");
-        assert.equal(data["x-user-agent"], "Sheetsu-Node/1.0on");
+        assert.equal(data["x-user-agent"], "SheetDB-Node/1");
       }, function(err) {
-        assert.fail('sheetsu throw error');
+        assert.fail('sheetdb throw error');
       }).then(function(){
         mock.teardown();
       });
@@ -64,13 +64,13 @@ describe('sheetsu', function() {
 
     it('should return url without limit and offset', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd', function(req, res) {
         return res.status(200).body(req);
       });
-      return sheetsu.read().then(function(data){
-        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0on/dfsdf43fsd');
+      return sheetdb.read().then(function(data){
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd');
       }, function(err) {
-        assert.fail('sheetsu throw error');
+        assert.fail('sheetdb throw error');
       }).then(function(){
         mock.teardown();
       });
@@ -78,14 +78,14 @@ describe('sheetsu', function() {
 
     it('should return url with limit', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd?limit=5', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd?limit=5', function(req, res) {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read({ limit: 5 }).then(function(data){
-        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0on/dfsdf43fsd?limit=5');
+      return sheetdb.read({ limit: 5 }).then(function(data){
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd?limit=5');
       }, function(err) {
-        assert.fail('sheetsu throw error');
+        assert.fail('sheetdb throw error');
       }).then(function(){
         mock.teardown();
       });
@@ -93,14 +93,14 @@ describe('sheetsu', function() {
 
     it('should return url with offset', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd?offset=10', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd?offset=10', function(req, res) {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read({ offset: 10 }).then(function(data) {
-        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0on/dfsdf43fsd?offset=10');
+      return sheetdb.read({ offset: 10 }).then(function(data) {
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd?offset=10');
       }, function(err) {
-        assert.fail('sheetsu throw error');
+        assert.fail('sheetdb throw error');
       }).then(function(){
         mock.teardown();
       });
@@ -108,14 +108,14 @@ describe('sheetsu', function() {
 
     it('should return url with offset and limit', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd?limit=5&offset=10', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd?limit=5&offset=10', function(req, res) {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read({ limit: 5, offset: 10 }).then(function(data){
-        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0on/dfsdf43fsd?limit=5&offset=10');
+      return sheetdb.read({ limit: 5, offset: 10 }).then(function(data){
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd?limit=5&offset=10');
       }, function(err) {
-        assert.fail('sheetsu throw error');
+        assert.fail('sheetdb throw error');
       }).then(function(){
         mock.teardown();
       });
@@ -123,14 +123,14 @@ describe('sheetsu', function() {
 
     it('should be able to search', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/search?name=test&foo=bar', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/search?name=test&foo=bar', function(req, res) {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read({ search: {name: 'test', foo: 'bar'} }).then(function(data) {
-        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0on/dfsdf43fsd/search?name=test&foo=bar');
+      return sheetdb.read({ search: {name: 'test', foo: 'bar'} }).then(function(data) {
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/search?name=test&foo=bar');
       }, function(err) {
-        assert.fail('sheetsu throw error');
+        assert.fail('sheetdb throw error');
       }).then(function(){
         mock.teardown();
       });
@@ -138,14 +138,14 @@ describe('sheetsu', function() {
 
     it('should be able to search with limit', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/search?name=test&foo=bar&limit=5', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/search?name=test&foo=bar&limit=5', function(req, res) {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read({ limit: 5, search: {name: 'test', foo: 'bar'} }).then(function(data) {
-        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0on/dfsdf43fsd/search?name=test&foo=bar&limit=5');
+      return sheetdb.read({ limit: 5, search: {name: 'test', foo: 'bar'} }).then(function(data) {
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/search?name=test&foo=bar&limit=5');
       }, function(err) {
-        assert.fail('sheetsu throw error');
+        assert.fail('sheetdb throw error');
       }).then(function(){
         mock.teardown();
       });
@@ -153,14 +153,14 @@ describe('sheetsu', function() {
 
     it('should be able to use different sheet', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/sheets/Sheet3', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3', function(req, res) {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read({ sheet: 'Sheet3' }).then(function(data) {
-        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0on/dfsdf43fsd/sheets/Sheet3');
+      return sheetdb.read({ sheet: 'Sheet3' }).then(function(data) {
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3');
       }, function(err) {
-        assert.fail('sheetsu throw error');
+        assert.fail('sheetdb throw error');
       }).then(function(){
         mock.teardown();
       });
@@ -168,14 +168,14 @@ describe('sheetsu', function() {
 
     it('should be able to use different sheet when limit set', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
         return res.status(200).body(req);
       });
 
-      return sheetsu.read({ limit: 6, sheet: 'Sheet3' }).then(function(data) {
-        assert.equal(data._url, 'https://sheetsu.com/apis/v1.0on/dfsdf43fsd/sheets/Sheet3?limit=6');
+      return sheetdb.read({ limit: 6, sheet: 'Sheet3' }).then(function(data) {
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3?limit=6');
       }, function(err) {
-        assert.fail('sheetsu throw error');
+        assert.fail('sheetdb throw error');
       }).then(function(){
         mock.teardown();
       });
@@ -183,12 +183,12 @@ describe('sheetsu', function() {
 
     it('should return error when 404', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
         return res.status(404).body(req);
       });
 
-      return sheetsu.read().then(function(data) {
-        assert.fail('sheetsu does not throw any error');
+      return sheetdb.read().then(function(data) {
+        assert.fail('sheetdb does not throw any error');
       }, function(err) {
       }).then(function(){
         mock.teardown();
@@ -197,12 +197,12 @@ describe('sheetsu', function() {
 
     it('should return error when 429', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
         return res.status(429).body(req);
       });
 
-      return sheetsu.read().then(function(data) {
-        assert.fail('sheetsu does not throw any error');
+      return sheetdb.read().then(function(data) {
+        assert.fail('sheetdb does not throw any error');
       }, function(err) {
       }).then(function(){
         mock.teardown();
@@ -211,12 +211,12 @@ describe('sheetsu', function() {
 
     it('should return error when 403', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
         return res.status(403).body(req);
       });
 
-      return sheetsu.read().then(function(data) {
-        assert.fail('sheetsu does not throw any error');
+      return sheetdb.read().then(function(data) {
+        assert.fail('sheetdb does not throw any error');
       }, function(err) {
       }).then(function(){
         mock.teardown();
@@ -225,12 +225,12 @@ describe('sheetsu', function() {
 
     it('should return error when 401', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
         return res.status(401).body(req);
       });
 
-      return sheetsu.read().then(function(data) {
-        assert.fail('sheetsu does not throw any error');
+      return sheetdb.read().then(function(data) {
+        assert.fail('sheetdb does not throw any error');
       }, function(err) {
       }).then(function(){
         mock.teardown();
@@ -239,12 +239,12 @@ describe('sheetsu', function() {
 
     it('should return error when 500', function() {
       mock.setup();
-      mock.get('https://sheetsu.com/apis/v1.0on/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
         return res.status(500).body(req);
       });
 
-      return sheetsu.read().then(function(data) {
-        assert.fail('sheetsu does not throw any error');
+      return sheetdb.read().then(function(data) {
+        assert.fail('sheetdb does not throw any error');
       }, function(err) {
       }).then(function(){
         mock.teardown();

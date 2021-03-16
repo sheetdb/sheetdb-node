@@ -4,18 +4,22 @@
     {
       "name": "Michael Oblak",
       "email": "m@sheetsu.com"
+    },
+    {
+      "name": "Chris Switalski",
+      "email": "chris@sheetdb.io"
     }
   ],
-  "name": "sheetsu-node",
-  "description": "Official Sheetsu API bindings for Node.js",
+  "name": "sheetdb-node",
+  "description": "Official SheetDB API bindings for Node.js",
   "version": "0.0.7",
-  "homepage": "https://github.com/sheetsu/sheetsu-node",
+  "homepage": "https://github.com/sheetdb/sheetdb-node",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sheetsu/sheetsu-node.git"
+    "url": "git://github.com/sheetdb/sheetdb-node.git"
   },
   "keywords": [
-    "sheetsu",
+    "sheetdb",
     "api",
     "google spreadsheets",
     "google spreadsheets api",
@@ -41,7 +45,7 @@
     "node": "*"
   },
   "bugs": {
-    "url": "https://github.com/sheetsu/sheetsu-node/issues"
+    "url": "https://github.com/sheetdb/sheetdb-node/issues"
   },
   "license": "ISC"
 }

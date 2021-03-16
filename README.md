@@ -1,22 +1,22 @@
 
-# sheetsu-node
- <!-- [![Build passing](https://travis-ci.org/sheetsu/sheetsu-ruby.svg?branch=master)](https://travis-ci.org/sheetsu/sheetsu-ruby) [![Code Climate](https://codeclimate.com/github/sheetsu/sheetsu-ruby/badges/gpa.svg)](https://codeclimate.com/github/sheetsu/sheetsu-ruby) [![Test Coverage](https://codeclimate.com/github/sheetsu/sheetsu-ruby/badges/coverage.svg)](https://codeclimate.com/github/sheetsu/sheetsu-ruby/coverage)
-Ruby bindings for the Sheetsu API (https://sheetsu.com/docs). -->
+# sheetdb-node
+ <!-- [![Build passing](https://travis-ci.org/sheetdb/sheetdb-ruby.svg?branch=master)](https://travis-ci.org/sheetdb/sheetdb-ruby) [![Code Climate](https://codeclimate.com/github/sheetdb/sheetdb-ruby/badges/gpa.svg)](https://codeclimate.com/github/sheetdb/sheetdb-ruby) [![Test Coverage](https://codeclimate.com/github/sheetdb/sheetdb-ruby/badges/coverage.svg)](https://codeclimate.com/github/sheetdb/sheetdb-ruby/coverage)
+Ruby bindings for the SheetDB API (https://sheetdb.com/docs). -->
 
 ## Installation
 
 ```
-npm install sheetsu-node --save
+npm install sheetdb-node --save
 ```
 
 ## Usage
 
 ### Generating a Client
 
-You need to create a new sheetsu function, and populate it with your Sheetsu API URL. You can find this URL on [Sheetsu Dashboard](https://sheetsu.com/your-apis).
+You need to create a new sheetdb function, and populate it with your SheetDB API URL. You can find this URL on [SheetDB Dashboard](https://sheetdb.com/your-apis).
 
 ```js
-var sheetsu = require('sheetsu-node');
+var sheetdb = require('sheetdb-node');
 
 // create a config file
 var config = {
@@ -24,12 +24,12 @@ var config = {
 };
 
 // Create new client
-var client = sheetsu(config);
+var client = sheetdb(config);
 
 ```
 for ES6
 ```js
-import sheetsu from 'sheetsu-node';
+import sheetdb from 'sheetdb-node';
 
 // create a config file
 var config = {
@@ -37,28 +37,28 @@ var config = {
 };
 
 // Create new client
-var client = sheetsu(config);
+var client = sheetdb(config);
 ```
 
-If you have HTTP Basic Authentication turned on for your API, you should pass `api_key` and `api_secret` here, like:
+If you have HTTP Basic Authentication turned on for your API, you should pass `auth_login` and `auth_password` here, like:
 ```js
 // create a config file
 var config = {
   address: '020b2c0f',
-  api_key: 'YOUR_API_KEY',
-  api_secret: 'YOUR_API_SECRET',
+  auth_login: 'YOUR_basic_auth_login',
+  auth_password: 'YOUR_basic_auth_password',
 };
 
 // Create new client
-var client = sheetsu(config);
+var client = sheetdb(config);
 ```
 
 ### CRUD
 
-Sheetsu gives you the ability to use full CRUD on your Google Spreadsheet. Remember to populate the first row of every sheet with column names. You can look at [example spreadsheet](https://docs.google.com/spreadsheets/d/1WTwXrh2ZDXmXATZlQIuapdv4ldyhJGZg7LX8GlzPdZw/edit?usp=sharing).
+SheetDB gives you the ability to use full CRUD on your Google Spreadsheet. Remember to populate the first row of every sheet with column names. You can look at [example spreadsheet](https://docs.google.com/spreadsheets/d/1WTwXrh2ZDXmXATZlQIuapdv4ldyhJGZg7LX8GlzPdZw/edit?usp=sharing).
 
 ### Create
-[Link to docs](https://sheetsu.com/docs#post)
+[Link to docs](https://sheetdb.com/docs#post)
 
 To add data to Google Spreadsheets, send a hash or an array of hashes.
 ```js
@@ -97,7 +97,7 @@ client.create({ id: 7, name: "Glenn", score: "69" }, "Sheet3").then(function(dat
 On success returns a hash or an array of hashes with created values.
 
 ### Read
-[Link to docs](https://sheetsu.com/docs#get)
+[Link to docs](https://sheetdb.com/docs#get)
 
 Read the whole sheet
 ```js
@@ -131,7 +131,7 @@ client.read({ limit: 2, offset: 4, sheet: 'Sheet3' }).then(function(data) {
 ```
 
 #### search
-[Link to docs](https://sheetsu.com/docs#get_search)
+[Link to docs](https://sheetdb.com/docs#get_search)
 
 To get rows that match search criteria, pass a hash with search params
 
@@ -168,7 +168,7 @@ client.read({
 On success returns an array of hashes.
 
 ### Update
-[Link to docs](https://sheetsu.com/docs#patch)
+[Link to docs](https://sheetdb.com/docs#patch)
 
 To update row(s), pass column name and its value which is used to find row(s).
 
@@ -193,7 +193,7 @@ client.update(
 });
 ```
 
-By default, [PATCH request](https://sheetsu.com/docs#patch) is sent, which is updating only values which are in the hash passed to the method. To send [PUT request](https://sheetsu.com/docs#put), pass 4th argument being `true`. [Read more about the difference between PUT and PATCH in our docs](https://sheetsu.com/docs#patch).
+By default, [PATCH request](https://sheetdb.com/docs#patch) is sent, which is updating only values which are in the hash passed to the method. To send [PUT request](https://sheetdb.com/docs#put), pass 4th argument being `true`. [Read more about the difference between PUT and PATCH in our docs](https://sheetdb.com/docs#patch).
 
 
 ```js
@@ -233,7 +233,7 @@ client.update(
 On success returns an array of hashes with updated values.
 
 ### Delete
-[Link to docs](https://sheetsu.com/docs#delete)
+[Link to docs](https://sheetdb.com/docs#delete)
 
 To delete row(s), pass column name and its value which is used to find row(s).
 
@@ -279,7 +279,7 @@ npm run nyan-test
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/sheetsu/sheetsu-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/sheetdb/sheetdb-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ### Pull Requests
 
@@ -296,4 +296,4 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/sheets
 
 ### Docs
 
-[Sheetsu documentation sits on GitHub](https://github.com/sheetsu/docs). We would love your contributions! We want to make these docs accessible and easy to understand for everyone. Please send us Pull Requests or open issues on GitHub.
+[SheetDB documentation sits on GitHub](https://github.com/sheetdb/docs). We would love your contributions! We want to make these docs accessible and easy to understand for everyone. Please send us Pull Requests or open issues on GitHub.

@@ -1,10 +1,10 @@
-// sheetsu = require(sheetsu-node);
-// (ES6+) import sheetsu from 'sheetsu-node';
+// sheetdb = require(sheetdb-node);
+// (ES6+) import sheetdb from 'sheetdb-node';
 //
-// sheetsu.create(newRow, sheet);
-// sheetsu.read(limit, offset, search, sheet);
-// sheetsu.update(columnName, value, newRow, updateWhole, sheet);
-// sheetsu.delete(columnName, value, sheet);
+// sheetdb.create(newRow, sheet);
+// sheetdb.read(limit, offset, search, sheet);
+// sheetdb.update(columnName, value, newRow, updateWhole, sheet);
+// sheetdb.delete(columnName, value, sheet);
 
 var readFunc = require('./lib/read.js');
 var createFunc = require('./lib/create.js');
@@ -14,12 +14,12 @@ var validAddress = require('./lib/validAddress.js');
 var isURL = require('./lib/isURL.js');
 
 
-var sheetsuNode = function(config) {
+var sheetdbNode = function(config) {
   var configParam = config || {};
 
-  configParam.version = configParam.version || '1.0on';
-  configParam.api_key = configParam.api_key || '';
-  configParam.api_secret = configParam.api_secret || '';
+  configParam.version = configParam.version || '1';
+  configParam.auth_login = configParam.auth_login || '';
+  configParam.auth_password = configParam.auth_password || '';
 
   if(!configParam.address) {
     throw Error('address param needed');
@@ -30,7 +30,7 @@ var sheetsuNode = function(config) {
   }
 
   if(!isURL(configParam.address)) {
-    configParam.address = 'https://sheetsu.com/apis/v' +
+    configParam.address = 'https://sheetdb.io/api/v' +
       configParam.version + '/' +
       configParam.address;
   }
@@ -46,4 +46,4 @@ var sheetsuNode = function(config) {
   }
 }
 
-module.exports = sheetsuNode;
+module.exports = sheetdbNode;
