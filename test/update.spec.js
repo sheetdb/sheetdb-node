@@ -9,28 +9,13 @@ describe('sheetdb', function() {
       address: 'dfsdf43fsd',
     });
 
-    it('should run with PUT method', function() {
-      mock.setup();
-      mock.put('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
-        return res.status(200).body('test');
-      });
-
-      return sheetdb.update('column', 'test', undefined, true).then(function(data) {
-        assert.equal(data, 'test');
-      }, function(err) {
-        assert.fail('sheetdb throw error');
-      }).then(function() {
-        mock.teardown();
-      });
-    });
-
     it('should run with PATCH method', function() {
       mock.setup();
       mock.patch('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
         return res.status(200).body('test');
       });
 
-      return sheetdb.update('column', 'test', undefined, false).then(function(data) {
+      return sheetdb.update('column', 'test', undefined).then(function(data) {
         assert.equal(data, 'test');
       }, function(err) {
         assert.fail('sheetdb throw error');
@@ -66,13 +51,11 @@ describe('sheetdb', function() {
         return res.status(200).body(req._headers);
       });
 
-      return sheetdb.update('column', 'test', undefined, true).then(function(data) {
+      return sheetdb.update('column', 'test', undefined).then(function(data) {
         assert.equal(data["accept"], "application/vnd.sheetdb.3+json");
         assert.equal(data["content-type"], "application/json");
         assert.equal(data["x-user-agent"], "SheetDB-Node/1");
-      }, function(err) {
-        assert.fail('sheetdb throw error');
-      }).then(function(){
+      }, function(err) {}).then(function(){
         mock.teardown();
       });
     });
@@ -84,7 +67,7 @@ describe('sheetdb', function() {
       mock.patch('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
         return res.status(200).body(req);
       });
-      return sheetdb.update('column', 'test', undefined, false).then(function(data){
+      return sheetdb.update('column', 'test', undefined).then(function(data){
         assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/column/test');
       }, function(err) {
         assert.fail('sheetdb throw error');
@@ -111,7 +94,7 @@ describe('sheetdb', function() {
         return res.status(200).body('{"test":3}');
       });
 
-      return sheetdb.update('column', 'test', {test: 3}, false).then(function(data){
+      return sheetdb.update('column', 'test', {test: 3}).then(function(data){
         assert.equal(data, '{"test":3}');
       }, function(err) {
         assert.fail('sheetdb throw error');
@@ -126,7 +109,7 @@ describe('sheetdb', function() {
         return res.status(200).body(req);
       });
 
-      return sheetdb.update('column', 'test', {}, false, 'Sheet3').then(function(data){
+      return sheetdb.update('column', 'test', {}, 'Sheet3').then(function(data){
         assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3/column/test');
       }, function(err) {
         assert.fail('sheetdb throw error');
@@ -139,7 +122,7 @@ describe('sheetdb', function() {
         return res.status(404).body(req._xhr);
       });
 
-      return sheetdb.delete('column', 'test', {}, false).then(function(data) {
+      return sheetdb.update('column', 'test', {}, false).then(function(data) {
         assert.equal(data.status, 404);
       }, function(err) {
       }).then(function(){
