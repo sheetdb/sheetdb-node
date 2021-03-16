@@ -116,7 +116,7 @@ client.read({ limit: 2, sheet: "Sheet2" }).then(function(data) {
   console.log(err);
 });
 
-// Get 5th and 6th record from worksheet named "Sheet2"
+// Get 3rd and 4th record from worksheet named "Sheet2"
 client.read({ limit: 2, offset: 2, sheet: 'Sheet2' }).then(function(data) {
   console.log(data);
 }, function(err){
