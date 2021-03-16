@@ -137,8 +137,8 @@ client.read({ search: { id: "foo", value: "bar" } }).then(function(data) {
   console.log(err);
 });
 
-// Get all rows where column 'First name' is 'Peter' and column 'Score' is '42'
-client.read({ search: { 'first name': 'Peter', 'Score': 42 } }).then(function(data) {
+// Get all rows where column 'First name' is 'Smith' and column 'Score' is '42'
+client.read({ search: { 'first name': 'Smith', 'Score': 42 } }).then(function(data) {
   console.log(data);
 }, function(err){
   console.log(err);
@@ -175,11 +175,11 @@ client.update(columnName, value, newRow, sheet).then(function(data) {
 ```
 
 ```js
-// Update all columns where 'name' is 'Peter' to have 'score' = 99 and 'last name' = 'Griffin'
+// Update all columns where 'name' is 'Smith' to have 'score' = 99 and 'comment' = 'Griffin'
 client.update(
   'name', // column name
-  'Peter', // value to search for
-  { 'score': 99, 'last name': 'Griffin' } // object with updates
+  'Smith', // value to search for
+  { 'score': 99, 'comment': 'Griffin' } // object with updates
 ).then(function(data) {
   console.log(data);
 }, function(err){
@@ -189,14 +189,13 @@ client.update(
 
 To perform `#update` on different than the first sheet, pass sheet name as a 4th argument.
 ```js
-// Update all columns where 'name' is 'Peter' to have 'score' = 99 and 'last name' = 'Griffin'
-// In sheet named 'Sheet3'
-// Empty all cells which matching, which are not 'score' or 'last name'
+// Update all columns where 'name' is 'Smith' to have 'score' = 99 and 'comment' = 'Griffin'
+// In sheet named 'Sheet2'
 client.update(
   'name', // column name
-  'Peter', // value to search for
-  { 'score': 99, 'last name': 'Griffin' }, // object with updates
-  'Sheet3'
+  'Smith', // value to search for
+  { 'score': 99, 'comment': 'Griffin' }, // object with updates
+  'Sheet2'
 ).then(function(data) {
   console.log(data);
 }, function(err){
@@ -204,7 +203,7 @@ client.update(
 });
 ```
 
-On success returns an array of objects with updated values.
+On success returns a number of updated rows.
 
 ### Delete
 [Link to docs](https://docs.sheetdb.io/#delete)
@@ -212,7 +211,7 @@ On success returns an array of objects with updated values.
 To delete row(s), pass column name and its value which is used to find row(s).
 
 ```js
-// Delete all rows where 'name' equals 'Peter'
+// Delete all rows where 'name' equals 'Smith'
 client.delete(
   'id', // column name
   '1' // value to search for
