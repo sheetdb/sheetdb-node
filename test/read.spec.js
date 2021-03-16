@@ -153,12 +153,12 @@ describe('sheetdb', function() {
 
     it('should be able to use different sheet', function() {
       mock.setup();
-      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd?sheet=Sheet2', function(req, res) {
         return res.status(200).body(req);
       });
 
-      return sheetdb.read({ sheet: 'Sheet3' }).then(function(data) {
-        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3');
+      return sheetdb.read({ sheet: 'Sheet2' }).then(function(data) {
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd?sheet=Sheet2');
       }, function(err) {
         assert.fail('sheetdb throw error');
       }).then(function(){
@@ -168,12 +168,27 @@ describe('sheetdb', function() {
 
     it('should be able to use different sheet when limit set', function() {
       mock.setup();
-      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3?limit=6', function(req, res) {
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd?limit=6&sheet=Sheet2', function(req, res) {
         return res.status(200).body(req);
       });
 
-      return sheetdb.read({ limit: 6, sheet: 'Sheet3' }).then(function(data) {
-        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/sheets/Sheet3?limit=6');
+      return sheetdb.read({ limit: 6, sheet: 'Sheet2' }).then(function(data) {
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd?limit=6&sheet=Sheet2');
+      }, function(err) {
+        assert.fail('sheetdb throw error');
+      }).then(function(){
+        mock.teardown();
+      });
+    });
+
+    it('should be able to use all attributes together', function() {
+      mock.setup();
+      mock.get('https://sheetdb.io/api/v1/dfsdf43fsd/search?id=1&limit=1&offset=1&sheet=Sheet2', function(req, res) {
+        return res.status(200).body(req);
+      });
+
+      return sheetdb.read({ search: {id: 1}, limit: 1, offset: 1, sheet: 'Sheet2' }).then(function(data) {
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/search?id=1&limit=1&offset=1&sheet=Sheet2');
       }, function(err) {
         assert.fail('sheetdb throw error');
       }).then(function(){
