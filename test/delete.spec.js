@@ -6,12 +6,12 @@ var mock = require('xhr-mock');
 describe('sheetdb', function() {
   describe('delete() function', function() {
     var sheetdb = sheetdbAPI({
-      address: 'dfsdf43fsd',
+      address: '58f61be4dda40',
     });
 
     it('should run with DELETE method', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/58f61be4dda40/column/test', function(req, res) {
         return res.status(200).body('test');
       });
 
@@ -26,12 +26,12 @@ describe('sheetdb', function() {
 
     it('should run with Http Basic Auth', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/58f61be4dda40/column/test', function(req, res) {
         return res.status(201).body(req._headers);
       });
 
       sheetdbLocal = sheetdbAPI({
-        address: 'dfsdf43fsd',
+        address: '58f61be4dda40',
         auth_login: 'somekey',
         auth_password: 'somesecret',
       });
@@ -47,7 +47,7 @@ describe('sheetdb', function() {
 
     it('should run with correct headers', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/58f61be4dda40/column/test', function(req, res) {
         return res.status(201).body(req._headers);
       });
 
@@ -64,12 +64,12 @@ describe('sheetdb', function() {
 
     it('should run with column name and value', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/58f61be4dda40/column/test', function(req, res) {
         return res.status(200).body(req);
       })
 
       return sheetdb.delete('column', 'test').then(function(data){
-        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/column/test');
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/58f61be4dda40/column/test');
       }, function(err) {
         assert.fail('sheetdb throw error');
       }).then(function() {
@@ -79,7 +79,7 @@ describe('sheetdb', function() {
 
     it('should throw error when no column param', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/58f61be4dda40/column/test', function(req, res) {
         return res.status(200).body(req);
       });
 
@@ -94,12 +94,12 @@ describe('sheetdb', function() {
 
     it('should return url different Sheet', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test?sheet=Sheet2', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/58f61be4dda40/column/test?sheet=Sheet2', function(req, res) {
         return res.status(200).body(req);
       });
 
       return sheetdb.delete('column', 'test', 'Sheet2').then(function(data){
-        assert.equal(data._url, 'https://sheetdb.io/api/v1/dfsdf43fsd/column/test?sheet=Sheet2');
+        assert.equal(data._url, 'https://sheetdb.io/api/v1/58f61be4dda40/column/test?sheet=Sheet2');
       }, function(err) {
         assert.fail('sheetdb throw error');
       }).then(function() {
@@ -109,7 +109,7 @@ describe('sheetdb', function() {
 
     it('should return error when 404', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/58f61be4dda40/column/test', function(req, res) {
         return res.status(404).body(req._xhr);
       });
 
@@ -123,7 +123,7 @@ describe('sheetdb', function() {
 
     it('should return error when 429', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/58f61be4dda40/column/test', function(req, res) {
         return res.status(429).body(req._xhr);
       });
 
@@ -137,7 +137,7 @@ describe('sheetdb', function() {
 
     it('should return error when 403', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/58f61be4dda40/column/test', function(req, res) {
         return res.status(403).body(req._xhr);
       });
 
@@ -151,7 +151,7 @@ describe('sheetdb', function() {
 
     it('should return error when 401', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/58f61be4dda40/column/test', function(req, res) {
         return res.status(401).body(req._xhr);
       });
 
@@ -165,7 +165,7 @@ describe('sheetdb', function() {
 
     it('should return error when 500', function() {
       mock.setup();
-      mock.delete('https://sheetdb.io/api/v1/dfsdf43fsd/column/test', function(req, res) {
+      mock.delete('https://sheetdb.io/api/v1/58f61be4dda40/column/test', function(req, res) {
         return res.status(500).body(req._xhr);
       });
 

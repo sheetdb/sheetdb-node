@@ -10,6 +10,7 @@ var readFunc = require('./lib/read.js');
 var createFunc = require('./lib/create.js');
 var updateFunc = require('./lib/update.js');
 var deleteFunc = require('./lib/delete.js');
+var endpointFunc = require('./lib/endpoint.js');
 var validAddress = require('./lib/validAddress.js');
 var isURL = require('./lib/isURL.js');
 
@@ -43,6 +44,7 @@ var sheetdbNode = function(config) {
     read: readFunc,
     update: updateFunc,
     delete: deleteFunc,
+    endpoint: endpointFunc,
   }
 }
 
